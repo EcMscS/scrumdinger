@@ -5,6 +5,7 @@
 //
 
 import Enumerations
+import Extensions
 import Models
 import Protocols
 import Resources
@@ -17,7 +18,7 @@ struct AddScreen {
     @StoredData private var dailyScrums: [DailyScrum]
     @State private var title: String = ""
     @State private var attendees: [DailyScrum.Attendee] = []
-    @State private var lengthInMinutes: Double = 5
+    @State private var length: TimeInterval = .minutes(5)
     @State private var theme: Theme = .seafoam
 
     private func dismissAction() {
@@ -28,7 +29,7 @@ struct AddScreen {
         let newScrum: DailyScrum = .init(
             title: title,
             attendees: attendees.map(\.name),
-            lengthInMinutes: Int(lengthInMinutes),
+            length: length,
             theme: theme
         )
         _dailyScrums.upsert(newScrum)
@@ -42,7 +43,7 @@ extension AddScreen: View {
             Form {
                 EditableMeetingInfoSection(
                     title: $title,
-                    lengthInMinutes: $lengthInMinutes,
+                    length: $length,
                     theme: $theme
                 )
 

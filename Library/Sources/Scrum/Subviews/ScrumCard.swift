@@ -4,6 +4,7 @@
 //  Created by James Sedlacek on 2/14/25.
 //
 
+import Extensions
 import Models
 import Resources
 import SwiftUI
@@ -49,8 +50,8 @@ struct ScrumCard: View {
     }
 
     private var lengthLabel: some View {
-        Label("\(scrum.lengthInMinutes)", symbol: .clock)
-            .accessibilityLabel(.meetingLength(scrum.lengthInMinutes))
+        Label("\(scrum.length.minutes)", symbol: .clock)
+            .accessibilityLabel(.meetingLength(scrum.length.minutes))
             .labelStyle(.trailingIcon)
     }
 }

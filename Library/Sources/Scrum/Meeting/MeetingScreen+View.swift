@@ -8,7 +8,6 @@ import SwiftUI
 
 extension MeetingScreen: View {
     var body: some View {
-        let _ = Self._printChanges()
         VStack {
             headerSection
             timerSection

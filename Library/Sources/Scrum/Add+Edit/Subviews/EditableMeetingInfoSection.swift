@@ -10,23 +10,23 @@ import SwiftUI
 @MainActor
 struct EditableMeetingInfoSection: View {
     @Binding private var title: String
-    @Binding private var lengthInMinutes: Double
+    @Binding private var length: TimeInterval
     @Binding private var theme: Theme
 
     init(
         title: Binding<String>,
-        lengthInMinutes: Binding<Double>,
+        length: Binding<TimeInterval>,
         theme: Binding<Theme>
     ) {
         self._title = title
-        self._lengthInMinutes = lengthInMinutes
+        self._length = length
         self._theme = theme
     }
 
     var body: some View {
         Section(.meetingInfo) {
             TitleTextField(title: $title)
-            LengthSlider(lengthInMinutes: $lengthInMinutes)
+            LengthSlider(length: $length)
             ThemePicker(selection: $theme)
         }
     }

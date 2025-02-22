@@ -18,14 +18,14 @@ struct EditScreen {
     @StoredData private var dailyScrums: [DailyScrum]
     @State private var title: String
     @State private var attendees: [DailyScrum.Attendee]
-    @State private var lengthInMinutes: Double
+    @State private var length: TimeInterval
     @State private var theme: Theme
 
     init(_ scrum: DailyScrum) {
         self.scrum = scrum
         _title = State(initialValue: scrum.title)
         _attendees = State(initialValue: scrum.attendees)
-        _lengthInMinutes = State(initialValue: Double(scrum.lengthInMinutes))
+        _length = State(initialValue: Double(scrum.length))
         _theme = State(initialValue: scrum.theme)
     }
 
@@ -38,7 +38,7 @@ struct EditScreen {
             id: scrum.id,
             title: title,
             attendees: attendees.map(\.name),
-            lengthInMinutes: Int(lengthInMinutes),
+            length: length,
             theme: theme
         )
         _dailyScrums.upsert(updatedScrum)
@@ -61,7 +61,7 @@ extension EditScreen: View {
     private var meetingInfoSection: some View {
         Section(.meetingInfo) {
             TitleTextField(title: $title)
-            LengthSlider(lengthInMinutes: $lengthInMinutes)
+            LengthSlider(length: $length)
             ThemePicker(selection: $theme)
         }
     }

@@ -6,6 +6,7 @@
 
 import AudioService
 import Enumerations
+import Extensions
 import Models
 import Protocols
 import Resources
@@ -20,7 +21,7 @@ struct MeetingScreen {
     @StoredData private var dailyScrums: [DailyScrum]
     @State var scrum: DailyScrum
     @State var activeSpeaker: DailyScrum.Attendee? = nil
-    @State var secondsElapsed: Int = 0
+    @State var secondsElapsed: TimeInterval = 0
     @State var errorToDisplay: SpeechServiceError? = nil
     @State private var timerTask: Task<Void, Never>? = nil
     @State private var transcript: String = ""
@@ -33,24 +34,20 @@ struct MeetingScreen {
         timerTask != nil && errorToDisplay == nil && !isMeetingComplete
     }
 
-    private var scrumLengthInSeconds: Int {
-        scrum.lengthInMinutes * 60
-    }
-
     private var isMeetingComplete: Bool {
-        secondsElapsed >= scrumLengthInSeconds
+        secondsElapsed >= scrum.length
     }
 
-    var secondsRemaining: Int {
-        scrumLengthInSeconds - secondsElapsed
+    var secondsRemaining: TimeInterval {
+        scrum.length - secondsElapsed
     }
 
-    private var secondsPerSpeaker: Int {
-        scrumLengthInSeconds / scrum.attendees.count
+    private var secondsPerSpeaker: TimeInterval {
+        scrum.length / TimeInterval(scrum.attendees.count)
     }
 
     private var speakerIndex: Int {
-        secondsElapsed / secondsPerSpeaker
+        Int(secondsElapsed / secondsPerSpeaker)
     }
 
     init(_ scrum: DailyScrum) {
@@ -117,7 +114,7 @@ struct MeetingScreen {
     private func updateHistory() {
         let history = History(
             attendees: scrum.attendees,
-            lengthInMinutes: scrum.lengthInMinutes,
+            length: scrum.length,
             transcript: transcript
         )
         let updatedHistory: [History] = [history] + scrum.history
@@ -126,8 +123,7 @@ struct MeetingScreen {
     }
 
     func skipAction() {
-        let currentSpeakerIndex = speakerIndex
-        let secondsToAdd = (currentSpeakerIndex + 1) * secondsPerSpeaker - secondsElapsed
+        let secondsToAdd = TimeInterval(speakerIndex + 1) * secondsPerSpeaker - secondsElapsed
         secondsElapsed += secondsToAdd
         updateActiveSpeaker()
     }

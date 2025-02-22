@@ -16,7 +16,7 @@ struct MeetingInfoSection: View {
     var body: some View {
         Section(.meetingInfo) {
             StartMeetingRow(action: startMeetingAction)
-            MeetingLengthRow(lengthInMinutes: scrum.lengthInMinutes)
+            MeetingLengthRow(length: scrum.length)
             ThemeRow(theme: scrum.theme)
         }
     }

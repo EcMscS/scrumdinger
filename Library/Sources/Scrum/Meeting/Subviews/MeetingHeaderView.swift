@@ -5,27 +5,31 @@ import ViewComponents
 
 @MainActor
 struct MeetingHeaderView {
-    private let secondsElapsed: Int
-    private let secondsRemaining: Int
+    private let secondsElapsed: TimeInterval
+    private let secondsRemaining: TimeInterval
     private let theme: Theme
 
-    init(secondsElapsed: Int, secondsRemaining: Int, theme: Theme) {
+    init(
+        secondsElapsed: TimeInterval,
+        secondsRemaining: TimeInterval,
+        theme: Theme
+    ) {
         self.secondsElapsed = secondsElapsed
         self.secondsRemaining = secondsRemaining
         self.theme = theme
     }
 
-    private var totalSeconds: Int {
+    private var totalSeconds: TimeInterval {
         secondsElapsed + secondsRemaining
     }
 
-    private var progress: Double {
+    private var progress: TimeInterval {
         guard totalSeconds > 0 else { return 1 }
-        return Double(secondsElapsed) / Double(totalSeconds)
+        return secondsElapsed / totalSeconds
     }
 
     private var minutesRemaining: Int {
-        secondsRemaining / 60
+        secondsRemaining.minutes
     }
 }
 

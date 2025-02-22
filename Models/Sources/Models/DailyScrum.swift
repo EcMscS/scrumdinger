@@ -11,7 +11,7 @@ public struct DailyScrum: Identifiable, Codable {
     public let id: UUID
     public var title: String
     public var attendees: [Attendee]
-    public var lengthInMinutes: Int
+    public var length: TimeInterval
     public var theme: Theme
     public var history: [History]
 
@@ -19,14 +19,14 @@ public struct DailyScrum: Identifiable, Codable {
         id: UUID = UUID(),
         title: String,
         attendees: [String],
-        lengthInMinutes: Int,
+        length: TimeInterval,
         theme: Theme,
         history: [History] = []
     ) {
         self.id = id
         self.title = title
         self.attendees = attendees.map { Attendee(name: $0) }
-        self.lengthInMinutes = lengthInMinutes
+        self.length = length
         self.theme = theme
         self.history = history
     }
@@ -37,7 +37,7 @@ extension DailyScrum: Hashable {
         hasher.combine(id)
         hasher.combine(title)
         hasher.combine(attendees)
-        hasher.combine(lengthInMinutes)
+        hasher.combine(length)
         hasher.combine(theme)
         hasher.combine(history)
     }
@@ -46,7 +46,7 @@ extension DailyScrum: Hashable {
         lhs.id == rhs.id &&
         lhs.title == rhs.title &&
         lhs.attendees == rhs.attendees &&
-        lhs.lengthInMinutes == rhs.lengthInMinutes &&
+        lhs.length == rhs.length &&
         lhs.theme == rhs.theme &&
         lhs.history == rhs.history
     }
@@ -66,7 +66,7 @@ extension DailyScrum {
     struct Data {
         var title: String = ""
         var attendees: [Attendee] = []
-        var lengthInMinutes: Double = 5
+        var length: TimeInterval = 300 // 5 minutes
         var theme: Theme = .seafoam
         var history: [History] = []
     }
@@ -75,7 +75,7 @@ extension DailyScrum {
         Data(
             title: title,
             attendees: attendees,
-            lengthInMinutes: Double(lengthInMinutes),
+            length: length,
             theme: theme,
             history: history
         )
@@ -84,7 +84,7 @@ extension DailyScrum {
     mutating func update(from data: Data) {
         title = data.title
         attendees = data.attendees
-        lengthInMinutes = Int(data.lengthInMinutes)
+        length = data.length
         theme = data.theme
     }
 
@@ -92,7 +92,7 @@ extension DailyScrum {
         id = UUID()
         title = data.title
         attendees = data.attendees
-        lengthInMinutes = Int(data.lengthInMinutes)
+        length = data.length
         theme = data.theme
         history = data.history
     }
