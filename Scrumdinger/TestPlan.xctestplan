@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "BF84507A-CDDB-4A34-AA2D-4C292D192641",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Models",
+        "identifier" : "ExtensionsTests",
+        "name" : "ExtensionsTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Scrumdinger.xcodeproj",
+        "identifier" : "868810CA2D6950F700446F79",
+        "name" : "ScrumdingerUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
