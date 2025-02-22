@@ -8,21 +8,21 @@ import Foundation
 import XCTest
 
 enum Button: String {
-    // Navigation Bar Buttons
     case add
     case addAttendee = "Add Attendee"
     case backToDailyScrums = "Daily Scrums"
     case cancel
+    case delete
     case dismiss
     case done
     case edit
+    case end
+    case forward = "forward.fill"
     case orange
     case oxblood
     case paintpalette
     case plus
-
-    // Action Buttons
-    case delete
+    case startMeeting = "Start Meeting"
 
     var element: XCUIElement {
         switch self {
@@ -32,8 +32,10 @@ enum Button: String {
             XCUIApplication().navigationBars.buttons[rawValue.capitalized]
         case .plus:
             XCUIApplication().navigationBars.buttons[rawValue]
-        case .paintpalette:
+        case .forward, .paintpalette:
             XCUIApplication().buttons[rawValue]
+        case .startMeeting:
+            XCUIApplication().staticTexts[rawValue]
         default:
             XCUIApplication().buttons[rawValue.capitalized]
         }

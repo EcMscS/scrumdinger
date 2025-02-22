@@ -10,6 +10,7 @@ class EditScrumNavigationTests: XCTestCase {
     var app: XCUIApplication!
 
     override func setUp() {
+        app?.terminate() // Reset app state
         continueAfterFailure = false
         app = .init()
         app.launch()

@@ -1,12 +1,12 @@
 //
-//  DetailScrumTests.swift
+//  MeetingScrumTests.swift
 //
-//  Created by James Sedlacek on 2/21/25.
+//  Created by James Sedlacek on 2/22/25.
 //
 
 import XCTest
 
-class DetailScrumNavigationTests: XCTestCase {
+class MeetingScrumNavigationTests: XCTestCase {
     var app: XCUIApplication!
 
     override func setUp() {
@@ -14,7 +14,7 @@ class DetailScrumNavigationTests: XCTestCase {
         continueAfterFailure = false
         app = .init()
         app.launch()
-        navigateToDetailScreen()
+        navigateToMeetingScreen()
     }
 
     override func tearDownWithError() throws {
@@ -27,25 +27,21 @@ class DetailScrumNavigationTests: XCTestCase {
             "Initial screen should be Daily Scrums"
         )
 
-        // Tap the plus button to show add screen
         let plusButton = Button.plus.element
         XCTAssertTrue(plusButton.exists)
         plusButton.tap()
     }
 
     private func addScrum() {
-        // Add a title
         let titleField = TextField.title.element
         XCTAssertTrue(titleField.waitForExistence(timeout: 2))
         titleField.tap()
         titleField.typeText("Design Meeting")
 
-        // Adjust length using slider
         let lengthSlider = Slider.length.element
         XCTAssertTrue(lengthSlider.waitForExistence(timeout: 2))
-        lengthSlider.adjust(toNormalizedSliderPosition: 1.0)
+        lengthSlider.adjust(toNormalizedSliderPosition: 0.5) // 15 minutes
 
-        // Change theme
         let themeButton = Button.paintpalette.element
         XCTAssertTrue(themeButton.waitForExistence(timeout: 2))
         themeButton.tap()
@@ -54,7 +50,6 @@ class DetailScrumNavigationTests: XCTestCase {
         XCTAssertTrue(orangeTheme.waitForExistence(timeout: 2))
         orangeTheme.tap()
 
-        // Add attendees
         let attendeeField = TextField.newAttendee.element
         XCTAssertTrue(attendeeField.waitForExistence(timeout: 2))
 
@@ -68,13 +63,12 @@ class DetailScrumNavigationTests: XCTestCase {
             addAttendeeButton.tap()
         }
 
-        // Add the scrum
         let addButton = Button.add.element
         XCTAssertTrue(addButton.exists)
         addButton.tap()
     }
 
-    private func navigateToDetailScreen() {
+    private func navigateToMeetingScreen() {
         let scrumCard = View.scrumCard(withTitle: "Design Meeting")
 
         if !scrumCard.exists {
@@ -88,55 +82,75 @@ class DetailScrumNavigationTests: XCTestCase {
         )
 
         scrumCard.tap()
+
+        let startMeetingButton = Button.startMeeting.element
+        XCTAssertTrue(startMeetingButton.waitForExistence(timeout: 2))
+        startMeetingButton.tap()
     }
 }
 
-final class DetailScrumTests: DetailScrumNavigationTests {
-    func testNavigateBack() {
-        let backButton = Button.backToDailyScrums.element
-        XCTAssertTrue(backButton.waitForExistence(timeout: 2))
-        backButton.tap()
-
+final class MeetingScrumTests: MeetingScrumNavigationTests {
+    func testSkipSpeaker() {
+        // Initial speaker should be John
+        let initialSpeaker = app.staticTexts["John"]
         XCTAssertTrue(
-            Title.dailyScrums.element.exists,
-            "Screen should be Daily Scrums"
+            initialSpeaker.exists,
+            "Initial speaker should be John"
+        )
+
+        // Skip to next speaker
+        let skipButton = Button.forward.element
+        XCTAssertTrue(skipButton.exists)
+        skipButton.tap()
+
+        // Verify speaker changed to Bob
+        let nextSpeaker = app.staticTexts["Bob"]
+        XCTAssertTrue(
+            nextSpeaker.exists,
+            "Speaker should change to Bob after skip"
         )
     }
 
-    func testSubviews() {
-        // Verify title
-        let title = app.staticTexts["Design Meeting"]
+    func testEndMeetingEarly() {
+        let backButton = app.buttons["Design Meeting"]
+        XCTAssertTrue(backButton.exists)
+        backButton.tap()
+
+        // Verify return to detail screen
+        let startMeetingButton = Button.startMeeting.element
         XCTAssertTrue(
-            title.exists,
-            "Title should match the created scrum"
+            startMeetingButton.exists,
+            "Should return to detail screen"
         )
 
-        // Verify meeting info
-        let lengthLabel = app.staticTexts
-            .matching(identifier: "30 minutes")
-            .firstMatch
+        // Get today's date formatted
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        let todayString = dateFormatter.string(from: .now)
+
+        // Verify today's meeting exists in history
+        let todayMeeting = app.staticTexts[todayString].firstMatch
         XCTAssertTrue(
-            lengthLabel.exists,
-            "Meeting length should be 30 minutes"
+            todayMeeting.exists,
+            "Today's meeting should appear in history"
         )
 
-        let themeLabel = app.staticTexts["Orange"]
+        // Tap on today's meeting
+        todayMeeting.tap()
+
+        // Verify meeting details
+        let attendeesList = app.staticTexts["John and Bob"]
         XCTAssertTrue(
-            themeLabel.exists,
-            "Theme label should be orange"
+            attendeesList.exists,
+            "Attendees should be listed correctly"
         )
 
-        // Verify individual attendees
-        let johnLabel = app.staticTexts["John"]
+        let transcript = app.staticTexts.matching(
+            NSPredicate(format: "label CONTAINS[c] %@", "Transcript")
+        ).firstMatch
         XCTAssertTrue(
-            johnLabel.exists,
-            "John should be in attendees list"
-        )
-
-        let bobLabel = app.staticTexts["Bob"]
-        XCTAssertTrue(
-            bobLabel.exists,
-            "Bob should be in attendees list"
+            transcript.exists,
+            "Transcript should be visible"
         )
     }
 }

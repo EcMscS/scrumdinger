@@ -23,6 +23,6 @@ enum View: String {
 
     // Returns a specific scrum card element based on meeting title
     static func scrumCard(withTitle title: String) -> XCUIElement {
-        XCUIApplication().staticTexts[title]
+        XCUIApplication().staticTexts[title].firstMatch
     }
 }
