@@ -14,9 +14,9 @@ import SwiftUI
 
 @MainActor
 struct MeetingScreen {
-    private let speechService: SpeechService = .init()
     @Environment(\.dismiss) private var dismiss
     @Environment(\.audioService) private var audioService
+    @Environment(\.speechService) private var speechService
     @StoredData private var dailyScrums: [DailyScrum]
     @State var scrum: DailyScrum
     @State var activeSpeaker: DailyScrum.Attendee? = nil
