@@ -12,9 +12,12 @@ enum Button: String {
     case add
     case addAttendee = "Add Attendee"
     case backToDailyScrums = "Daily Scrums"
+    case cancel
     case dismiss
+    case done
     case edit
     case orange
+    case oxblood
     case paintpalette
     case plus
 

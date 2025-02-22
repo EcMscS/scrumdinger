@@ -74,7 +74,7 @@ class DetailScrumNavigationTests: XCTestCase {
     }
 
     private func navigateToDetailScreen() {
-        let scrumCard = View.scrumCard.element
+        let scrumCard = View.scrumCard(withTitle: "Design Meeting")
 
         if !scrumCard.exists {
             navigateToAddScreen()
