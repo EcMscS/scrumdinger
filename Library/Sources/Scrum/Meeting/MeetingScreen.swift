@@ -30,24 +30,24 @@ struct MeetingScreen {
         .constant(errorToDisplay != nil)
     }
 
+    // Recording is active when timer is running, no errors, and meeting isn't complete
     var isRecording: Bool {
         timerTask != nil && errorToDisplay == nil && !isMeetingComplete
     }
 
+    // Meeting is complete when elapsed time reaches or exceeds total length
     private var isMeetingComplete: Bool {
         secondsElapsed >= scrum.length
     }
 
+    // Calculates remaining time by subtracting elapsed from total length
     var secondsRemaining: TimeInterval {
         scrum.length - secondsElapsed
     }
 
-    private var secondsPerSpeaker: TimeInterval {
-        scrum.length / TimeInterval(scrum.attendees.count)
-    }
-
+    // Determines current speaker's position based on elapsed time
     private var speakerIndex: Int {
-        Int(secondsElapsed / secondsPerSpeaker)
+        Int(secondsElapsed / scrum.secondsPerSpeaker)
     }
 
     init(_ scrum: DailyScrum) {
@@ -55,6 +55,7 @@ struct MeetingScreen {
         _activeSpeaker = .init(initialValue: scrum.attendees.first)
     }
 
+    // Creates async task that updates progress every second
     private func startTimer() {
         guard timerTask == nil else { return }
 
@@ -72,6 +73,7 @@ struct MeetingScreen {
         timerTask = nil
     }
 
+    // Manages meeting completion or updates time and speaker
     func updateProgress() {
         if isMeetingComplete {
             stopTimer()
@@ -83,6 +85,7 @@ struct MeetingScreen {
         }
     }
 
+    // Updates active speaker based on elapsed time, prevents index overflow
     private func updateActiveSpeaker() {
         let newSpeakerIndex = min(speakerIndex, scrum.attendees.count - 1)
         guard newSpeakerIndex < scrum.attendees.count else {  return }
@@ -122,8 +125,9 @@ struct MeetingScreen {
         _dailyScrums.upsert(scrum)
     }
 
+    // Advances to next speaker by calculating and adding required time
     func skipAction() {
-        let secondsToAdd = TimeInterval(speakerIndex + 1) * secondsPerSpeaker - secondsElapsed
+        let secondsToAdd = TimeInterval(speakerIndex + 1) * scrum.secondsPerSpeaker - secondsElapsed
         secondsElapsed += secondsToAdd
         updateActiveSpeaker()
     }
