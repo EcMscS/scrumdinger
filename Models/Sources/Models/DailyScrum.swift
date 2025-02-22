@@ -62,38 +62,4 @@ extension DailyScrum {
             self.name = name
         }
     }
-
-    struct Data {
-        var title: String = ""
-        var attendees: [Attendee] = []
-        var length: TimeInterval = 300 // 5 minutes
-        var theme: Theme = .seafoam
-        var history: [History] = []
-    }
-
-    var data: Data {
-        Data(
-            title: title,
-            attendees: attendees,
-            length: length,
-            theme: theme,
-            history: history
-        )
-    }
-
-    mutating func update(from data: Data) {
-        title = data.title
-        attendees = data.attendees
-        length = data.length
-        theme = data.theme
-    }
-
-    init(data: Data) {
-        id = UUID()
-        title = data.title
-        attendees = data.attendees
-        length = data.length
-        theme = data.theme
-        history = data.history
-    }
 }
