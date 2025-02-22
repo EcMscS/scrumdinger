@@ -67,6 +67,7 @@ fileprivate enum InternalTarget: CaseIterable {
         case .configuration:
             [
                 SwiftPackage.models.targetDependency,
+                SwiftPackage.services.targetDependency,
             ]
         case .resources:
             [

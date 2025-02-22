@@ -9,5 +9,5 @@ import SwiftUI
 /// Provides environment access to the speech service.
 extension EnvironmentValues {
     /// The speech service instance available in the environment.
-    @Entry public var speechService = SpeechService()
+    @Entry public var speechService: any SpeechServiceProtocol = SpeechService()
 }
