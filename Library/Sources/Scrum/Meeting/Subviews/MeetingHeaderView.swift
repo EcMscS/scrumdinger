@@ -63,7 +63,7 @@ extension MeetingHeaderView: View {
         VStack(alignment: .leading) {
             Text(.secondsElapsed)
                 .font(.caption)
-            Label("\(secondsElapsed)", symbol: .hourglassBottom)
+            Label(secondsElapsed.formatted(), symbol: .hourglassBottom)
         }
     }
 
@@ -71,7 +71,7 @@ extension MeetingHeaderView: View {
         VStack(alignment: .trailing) {
             Text(.secondsRemaining)
                 .font(.caption)
-            Label("\(secondsRemaining)", symbol: .hourglassTop)
+            Label(secondsRemaining.formatted(), symbol: .hourglassTop)
                 .labelStyle(.trailingIcon)
         }
     }
