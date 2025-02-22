@@ -11,7 +11,7 @@ enum Button: String {
     // Navigation Bar Buttons
     case add
     case addAttendee = "Add Attendee"
-    case back
+    case backToDailyScrums = "Daily Scrums"
     case dismiss
     case edit
     case orange
@@ -25,8 +25,6 @@ enum Button: String {
         switch self {
         case .add:
             XCUIApplication().navigationBars.buttons.element(boundBy: 2)
-        case .back:
-            XCUIApplication().navigationBars.buttons.element(boundBy: 0)
         case .dismiss:
             XCUIApplication().navigationBars.buttons[rawValue.capitalized]
         case .plus:

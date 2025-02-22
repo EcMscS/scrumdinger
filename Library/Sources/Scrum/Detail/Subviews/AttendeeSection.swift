@@ -15,6 +15,7 @@ struct AttendeeSection: View {
         Section(.attendees) {
             ForEach(attendees) { attendee in
                 Label(attendee.name, symbol: .person)
+                    .accessibilityIdentifier(attendee.name)
             }
         }
     }
