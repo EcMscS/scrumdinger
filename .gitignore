@@ -1,0 +1,103 @@
+# macOS System Files
+.DS_Store
+
+# Xcode
+*.xcworkspace
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+*.xcscmblueprint
+DerivedData/
+.idea/
+
+# Swift Package Manager
+.swiftpm
+Package.resolved
+.build/
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+fastlane/*.lock
+
+# Firebase
+GoogleService-Info.plist
+
+# Temporary Files
+*.swp
+*.swo
+*.tmp
+
+# Logs
+*.log
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Archives
+*.xcarchive
+
+# Unit Test & Coverage
+*.gcda
+*.gcno
+*.gcov
+*.profdata
+
+# XCFrameworks
+*.xcframework
+
+# Custom Configurations
+Config.plist
+Config/*.plist
+*.xcconfig
+
+# Symbolication Files
+*.bcsymbolmap
+
+# App Store Distribution
+*.ipa
+*.dSYM.zip
+
+# Build Artifacts
+*.o
+*.so
+*.dylib
+*.a
+*.bin
+*.crash
+*.ll
+*.bc
+*.pdb
+*.exe
+
+# IDE Personal Settings
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# Breakpoints
+*.xcdebugger
+
+# Scheme Management
+xcuserdata/
+*.xcscheme
+*.xcuserstate
+
+# Swift Package Artifacts
+*.xcodeproj/project.xcworkspace/xcuserdata
+
+# Vim/Editor Temporary Files
+*.swp
+*.swo
+
+# Visual Studio Code
+.vscode/
