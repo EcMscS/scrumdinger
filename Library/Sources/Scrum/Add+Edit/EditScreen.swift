@@ -50,19 +50,18 @@ extension EditScreen: View {
     var body: some View {
         NavigationStack {
             Form {
-                meetingInfoSection
-                EditableAttendeesSection(attendees: $attendees)
+                EditableMeetingInfoSection(
+                    title: $title,
+                    length: $length,
+                    theme: $theme
+                )
+
+                EditableAttendeesSection(
+                    attendees: $attendees
+                )
             }
             .navigationTitle(scrum.title)
             .toolbar(content: toolbarContent)
-        }
-    }
-
-    private var meetingInfoSection: some View {
-        Section(.meetingInfo) {
-            TitleTextField(title: $title)
-            LengthSlider(length: $length)
-            ThemePicker(selection: $theme)
         }
     }
 }
