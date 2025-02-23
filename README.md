@@ -96,6 +96,6 @@ We welcome contributions focused on:
 Please note that we are not accepting new feature additions at this time.
 
 # Credits
-Based on Apple's [iOS App Dev Training](https://developer.apple.com/tutorials/app-dev-training/getting-started-with-scrumdinger)
+Based on Apple's [iOS App Dev Training](https://developer.apple.com/tutorials/app-dev-training/getting-started-with-scrumdinger) <br>
 Inspired by the [SyncUps](https://github.com/pointfreeco/syncups) project by Point-Free Co
 
