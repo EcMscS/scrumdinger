@@ -43,11 +43,13 @@ fileprivate enum PackageProduct: CaseIterable {
 
 fileprivate enum InternalTarget: CaseIterable {
     case audioService
+    case fileService
     case speechService
 
     var title: String {
         switch self {
         case .audioService: "AudioService"
+        case .fileService: "FileService"
         case .speechService: "SpeechService"
         }
     }

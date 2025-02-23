@@ -6,7 +6,7 @@
 
 import Foundation
 
-public class MockAudioService {
+public class MockAudioService: @unchecked Sendable {
     private(set) var playedSounds: [SoundFile] = []
     private var shouldThrow: Bool = false
 

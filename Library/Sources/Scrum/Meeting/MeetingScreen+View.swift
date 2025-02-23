@@ -26,7 +26,7 @@ extension MeetingScreen: View {
         .padding()
         .alert(
             isPresented: isErrorPresented,
-            error: errorToDisplay,
+            error: errorToPresent,
             actions: errorActions,
             message: errorMessage
         )

@@ -22,17 +22,17 @@ struct MeetingScreen {
     @State var scrum: DailyScrum
     @State var activeSpeaker: DailyScrum.Attendee? = nil
     @State var secondsElapsed: TimeInterval = 0
-    @State var errorToDisplay: SpeechServiceError? = nil
+    @State var errorToPresent: SpeechServiceError? = nil
     @State private var timerTask: Task<Void, Never>? = nil
     @State private var transcript: String = ""
 
     var isErrorPresented: Binding<Bool> {
-        .constant(errorToDisplay != nil)
+        .constant(errorToPresent != nil)
     }
 
     // Recording is active when timer is running, no errors, and meeting isn't complete
     var isRecording: Bool {
-        timerTask != nil && errorToDisplay == nil && !isMeetingComplete
+        timerTask != nil && errorToPresent == nil && !isMeetingComplete
     }
 
     // Meeting is complete when elapsed time reaches or exceeds total length
@@ -110,7 +110,7 @@ struct MeetingScreen {
                 throw .streamFailed(error) 
             }
         } catch {
-            errorToDisplay = error
+            errorToPresent = error
         }
     }
 

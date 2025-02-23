@@ -6,7 +6,7 @@
 
 import Foundation
 
-public protocol SpeechServiceProtocol: AnyObject {
+public protocol SpeechServiceProtocol: AnyObject, Sendable {
     @MainActor func requestPermissions() async throws(SpeechServiceError)
     @MainActor func startRecording() throws(SpeechServiceError) -> AsyncThrowingStream<String, Error>
     func stopRecording()

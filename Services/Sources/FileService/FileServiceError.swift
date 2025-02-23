@@ -1,14 +1,14 @@
 //
-//  FileStorageError.swift
+//  FileServiceError.swift
 //
-//  Created by James Sedlacek on 2/20/25.
+//  Created by James Sedlacek on 2/22/25.
 //
 
 import Foundation
 
-/// Error cases that can occur during file storage operations.
+/// Error cases that can occur during file service operations.
 /// - All errors conform to `LocalizedError` to provide human-readable descriptions.
-public enum FileStorageError: LocalizedError {
+public enum FileServiceError: LocalizedError {
     /// The URL for the specified key could not be created.
     case invalidURL
     /// An error occurred while encoding the data to JSON.

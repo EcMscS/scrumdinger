@@ -6,8 +6,7 @@
 
 import SwiftUI
 
-/// A property wrapper that provides a convenient way to store and manage collections of identifiable objects
-/// with optional file persistence.
+/// A property wrapper that provides a convenient way to store and manage collections of identifiable objects.
 /// - Manages a DataStorage instance internally.
 /// - Provides direct access to the stored objects array.
 /// - Supports SwiftUI binding through projected value.
@@ -38,17 +37,9 @@ public struct DataStore<T: Identifiable & Equatable & Codable> {
     /// Creates a new DataStore instance.
     /// - Parameters:
     ///   - wrappedValue: The initial collection of objects. Defaults to empty array.
-    ///   - fileStorage: Optional FileStorage instance for persistence.
-    ///     If provided, data will be loaded from and saved to files.
-    public init(
-        wrappedValue: [T] = [],
-        _ fileStorage: FileStorage? = .init()
-    ) {
+    public init(wrappedValue: [T] = []) {
         _storage = State(
-            initialValue: DataStorage(
-                initialObjects: wrappedValue,
-                fileStorage: fileStorage
-            )
+            initialValue: DataStorage(initialObjects: wrappedValue)
         )
     }
 }

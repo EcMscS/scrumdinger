@@ -6,8 +6,15 @@
 
 import SwiftUI
 
+private struct SpeechServiceKey: EnvironmentKey {
+    static let defaultValue: any SpeechServiceProtocol = SpeechService()
+}
+
 /// Provides environment access to the speech service.
 extension EnvironmentValues {
     /// The speech service instance available in the environment.
-    @Entry public var speechService: any SpeechServiceProtocol = SpeechService()
+    public var speechService: any SpeechServiceProtocol {
+        get { self[SpeechServiceKey.self] }
+        set { self[SpeechServiceKey.self] = newValue }
+    }
 }

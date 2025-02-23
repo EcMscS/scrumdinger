@@ -6,7 +6,7 @@
 
 import Foundation
 
-public final class MockSpeechService: SpeechServiceProtocol {
+public final class MockSpeechService: SpeechServiceProtocol, @unchecked Sendable {
     private var accumulatedText: String = ""
     private var continuationHandler: AsyncThrowingStream<String, Error>.Continuation?
     private var shouldSimulateError: Bool

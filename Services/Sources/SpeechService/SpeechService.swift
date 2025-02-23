@@ -10,7 +10,7 @@ import Speech
 import SwiftUI
 
 /// A service that manages speech recognition using SFSpeechRecognizer.
-public final class SpeechService: SpeechServiceProtocol {
+public final class SpeechService: SpeechServiceProtocol, @unchecked Sendable {
     private var accumulatedText: String = ""
     private var audioEngine: AVAudioEngine?
     private var request: SFSpeechAudioBufferRecognitionRequest?

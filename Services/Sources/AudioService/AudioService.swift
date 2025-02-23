@@ -9,10 +9,12 @@ import SwiftUI
 
 /// A service that manages audio playback using AVPlayer.
 /// Provides caching of players for improved performance.
-public class AudioService {
+public final class AudioService: @unchecked Sendable {
     private var cachedPlayers: [SoundFile.ID: AVAudioPlayer] = [:]
 
-    public init() {}
+    public init() {
+        print("Initialized AudioService...")
+    }
 }
 
 extension AudioService: AudioServiceProtocol {

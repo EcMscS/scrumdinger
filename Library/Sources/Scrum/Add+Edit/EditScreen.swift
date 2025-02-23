@@ -5,6 +5,7 @@
 //
 
 import Enumerations
+import FileService
 import Models
 import Protocols
 import Resources
@@ -15,11 +16,17 @@ import ViewComponents
 struct EditScreen {
     private let scrum: DailyScrum
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.fileService) private var fileService
     @StoredData private var dailyScrums: [DailyScrum]
     @State private var title: String
     @State private var attendees: [DailyScrum.Attendee]
     @State private var length: TimeInterval
     @State private var theme: Theme
+    @State private var errorToPresent: FileServiceError? = nil
+
+    private var isErrorPresented: Binding<Bool> {
+        .constant(errorToPresent != nil)
+    }
 
     init(_ scrum: DailyScrum) {
         self.scrum = scrum
@@ -34,15 +41,20 @@ struct EditScreen {
     }
 
     private func doneAction() {
-        let updatedScrum = DailyScrum(
-            id: scrum.id,
-            title: title,
-            attendees: attendees.map(\.name),
-            length: length,
-            theme: theme
-        )
-        _dailyScrums.upsert(updatedScrum)
-        dismiss()
+        do throws(FileServiceError) {
+            let updatedScrum = DailyScrum(
+                id: scrum.id,
+                title: title,
+                attendees: attendees.map(\.name),
+                length: length,
+                theme: theme
+            )
+            _dailyScrums.upsert(updatedScrum)
+            try fileService.save(dailyScrums, forKey: .dailyScrumsKey)
+            dismiss()
+        } catch {
+            errorToPresent = error
+        }
     }
 }
 
