@@ -7,86 +7,54 @@
 
 import XCTest
 
-//This is the scrum list robot
-//Add Scrum robot is when you tap on add
-
-class ScrumListRobot: Robot {
-    //MARK: - Elements
-    private var addScrumButton: XCUIElement {
-        Button.plus.element
-    }
-
-    private var titleText: XCUIElement {
-        Title.dailyScrums.element
-    }
-
-    private func attendeeCountLabel(count: Int) -> XCUIElement {
-        app.staticTexts
-            .matching(identifier: "\(count) attendees")
-            .firstMatch
-    }
-
-    private func meetingLengthLabel(minutes: Int) -> XCUIElement {
-            app.staticTexts
-                .matching(identifier: "\(minutes) minute meeting")
-                .firstMatch
-    }
-
-
-    //MARK: - Validation
-
-    @discardableResult
-    func isOnScrumListView() -> ScrumListRobot {
-        XCTAssertTrue(titleText.exists)
-        return self
-    }
-
-    @discardableResult
-    func attendeeCountExists(attendeesCount: Int) -> ScrumListRobot {
-        XCTAssertTrue(attendeeCountLabel(count: attendeesCount).exists)
-        return self
-    }
-
-    @discardableResult
-    func meetingLengthLabel(minutes: Int) -> ScrumListRobot {
-        XCTAssertTrue(meetingLengthLabel(minutes: minutes).exists)
-        return self
-    }
-
-    //MARK: - Interaction
-
-    @discardableResult
-    func tapAppNewScrumButton() -> AddScrumRobot {
-        addScrumButton.tap()
-        return AddScrumRobot()
-    }
-
-}
-
-
 class AddScrumRobot: Robot {
-    //MARK: - Elements
 
+    init() {
+        XCTAssertTrue(addScrumButton.waitForExistence(timeout: 5), "Expected 'AddScrumRobot' screen, but it didn't appear")
+    }
+
+    //MARK: - Elements
     private var dismissScrumButton: XCUIElement {
         Button.dismiss.element
-    }
-
-    private var scrumCard: XCUIElement {
-        View.scrumCard.element
     }
 
     private var addScrumButton: XCUIElement {
         Button.add.element
     }
 
-    //MARK: - Validation
-
-    @discardableResult
-    func isOnAddScrumView() -> AddScrumRobot {
-        XCTAssertTrue(scrumCard.exists)
-        return self
+    private var titleTextField: XCUIElement {
+        TextField.title.element
     }
 
+    private var lengthSlider: XCUIElement {
+        Slider.length.element
+    }
+
+    private var selectThemeButton: XCUIElement {
+        Button.paintpalette.element
+    }
+
+    private var orangeThemeButton: XCUIElement {
+        Button.orange.element
+    }
+
+    private var attendeeField: XCUIElement {
+        TextField.newAttendee.element
+    }
+
+    private var addAttendeeButton: XCUIElement {
+        Button.addAttendee.element
+    }
+
+    func attendeeCell(for name: String) -> XCUIElement {
+        app.staticTexts[name]
+    }
+
+    private var deleteButton: XCUIElement {
+        Button.delete.element
+    }
+
+    //MARK: - Validation
     @discardableResult
     func tapCreateScrumButton() -> ScrumListRobot {
         addScrumButton.tap()
@@ -94,11 +62,49 @@ class AddScrumRobot: Robot {
     }
 
     //MARK: - Interaction
-
     @discardableResult
     func tapDismissScrumButton() -> ScrumListRobot {
         dismissScrumButton.tap()
         return ScrumListRobot()
     }
 
+    @discardableResult
+    func tapSelectThemeButton() -> AddScrumRobot {
+        selectThemeButton.tap()
+        return self
+    }
+
+    @discardableResult
+    func tapOrangeThemeButton() -> AddScrumRobot {
+        orangeThemeButton.tap()
+        return self
+    }
+
+    @discardableResult
+    func inputTitleText(_ text: String) -> AddScrumRobot {
+        titleTextField.tap()
+        titleTextField.typeText(text)
+        return self
+    }
+
+    @discardableResult
+    func setLengthSlider(_ length: CGFloat) -> AddScrumRobot {
+        lengthSlider.adjust(toNormalizedSliderPosition: length)
+        return self
+    }
+
+    @discardableResult
+    func addNewAttendee(_ attendee: String) -> AddScrumRobot {
+        attendeeField.tap()
+        attendeeField.typeText(attendee)
+        addAttendeeButton.tap()
+        return self
+    }
+
+    @discardableResult
+    func deleteAttendee(_ attendee: String) -> AddScrumRobot {
+        attendeeCell(for: attendee).swipeLeft()
+        deleteButton.tap()
+        return self
+    }
 }

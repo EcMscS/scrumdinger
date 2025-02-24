@@ -11,7 +11,6 @@ class ScrumListTests: XCTestCase {
     func testAppLaunchedInAddScrumScreen() {
         AppRobot()
             .launchApp()
-            .isOnScrumListView()
     }
 
     override func tearDownWithError() throws {
