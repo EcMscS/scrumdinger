@@ -7,30 +7,15 @@
 import XCTest
 
 class AddScrumNavigationTests: XCTestCase {
-    var app: XCUIApplication!
-
-    override func setUp() {
-        app?.terminate() // Reset app state
-        continueAfterFailure = false
-        app = .init()
-        app.launch()
-        navigateToAddScreen()
+    func testAppLaunchedInAddScrumScreen() {
+        AppRobot()
+            .launchApp()
+            .isOnAddScrumRobotScreen()
     }
 
     override func tearDownWithError() throws {
-        app = nil
-    }
-
-    private func navigateToAddScreen() {
-        XCTAssertTrue(
-            Title.dailyScrums.element.exists,
-            "Initial screen should be Daily Scrums"
-        )
-
-        // Tap the plus button to show add screen
-        let plusButton = Button.plus.element
-        XCTAssertTrue(plusButton.exists)
-        plusButton.tap()
+        AppRobot()
+            .terminateApp()
     }
 }
 
