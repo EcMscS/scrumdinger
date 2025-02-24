@@ -45,12 +45,12 @@ extension ScrumList: View {
         List(dailyScrums, rowContent: scrumRow)
             .refreshable(action: loadData)
             .onAppear(perform: loadData)
-            .alert(
-                isPresented: isErrorPresented,
-                error: errorToPresent,
-                actions: errorActions,
-                message: errorMessage
-            )
+//            .alert(
+//                isPresented: isErrorPresented,
+//                error: errorToPresent,
+//                actions: errorActions,
+//                message: errorMessage
+//            )
     }
 
     private func scrumRow(_ scrum: DailyScrum) -> some View {

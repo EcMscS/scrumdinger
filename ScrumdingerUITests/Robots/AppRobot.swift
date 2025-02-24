@@ -8,9 +8,9 @@
 class AppRobot: Robot {
     
     @discardableResult
-    func launchApp() -> AddScrumRobot {
+    func launchApp() -> ScrumListRobot {
         app.launch()
-        return AddScrumRobot()
+        return ScrumListRobot()
     }
 
     func terminateApp() {
