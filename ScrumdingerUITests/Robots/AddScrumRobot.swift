@@ -38,12 +38,24 @@ class AddScrumRobot: Robot {
         Button.orange.element
     }
 
+    private var navyThemeButton: XCUIElement {
+        Button.oxblood.element
+    }
+
     private var attendeeField: XCUIElement {
         TextField.newAttendee.element
     }
 
     private var addAttendeeButton: XCUIElement {
         Button.addAttendee.element
+    }
+
+    private var cancelButton: XCUIElement {
+        Button.cancel.element
+    }
+
+    private var doneButton: XCUIElement {
+        Button.done.element
     }
 
     func attendeeCell(for name: String) -> XCUIElement {
@@ -78,6 +90,24 @@ class AddScrumRobot: Robot {
     func tapOrangeThemeButton() -> AddScrumRobot {
         orangeThemeButton.tap()
         return self
+    }
+
+    @discardableResult
+    func tapNavyThemeButton() -> AddScrumRobot {
+        navyThemeButton.tap()
+        return self
+    }
+
+    @discardableResult
+    func tapCancelButton() -> DetailScrumRobot {
+        cancelButton.tap()
+        return DetailScrumRobot()
+    }
+
+    @discardableResult
+    func tapDoneButton() -> DetailScrumRobot {
+        doneButton.tap()
+        return DetailScrumRobot()
     }
 
     @discardableResult

@@ -25,6 +25,10 @@ class DetailScrumRobot: Robot {
         app.staticTexts[meetingName]
     }
 
+    private func meetingThemeLabel(themeName: String) -> XCUIElement {
+        app.staticTexts[themeName]
+    }
+
     private func attendeeCountLabel(count: Int) -> XCUIElement {
         app.staticTexts
             .matching(identifier: "\(count) attendees")
@@ -47,6 +51,10 @@ class DetailScrumRobot: Robot {
         Button.backToDailyScrums.element
     }
 
+    private var editButton: XCUIElement {
+        Button.edit.element
+    }
+
     private var startMeetingButton: XCUIElement {
         Button.startMeeting.element
     }
@@ -62,6 +70,12 @@ class DetailScrumRobot: Robot {
     func tapBackButton() -> ScrumListRobot {
         backButton.tap()
         return ScrumListRobot()
+    }
+
+    @discardableResult
+    func tapEditButton() -> AddScrumRobot {
+        editButton.tap()
+        return AddScrumRobot()
     }
 
     @discardableResult
@@ -85,6 +99,12 @@ class DetailScrumRobot: Robot {
     @discardableResult
     func meetingTitleLabelExists(title: String) -> DetailScrumRobot {
         XCTAssertTrue(meetingTitleLabel(meetingName: title).exists)
+        return self
+    }
+
+    @discardableResult
+    func meetingThemeLabelExists(color: String) -> DetailScrumRobot {
+        XCTAssertTrue(meetingThemeLabel(themeName: color).exists)
         return self
     }
 
