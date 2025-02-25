@@ -17,7 +17,7 @@ class AddScrumRobot: Robot {
     private var dismissScrumButton: XCUIElement {
         Button.dismiss.element
     }
-
+    
     private var addScrumButton: XCUIElement {
         Button.add.element
     }

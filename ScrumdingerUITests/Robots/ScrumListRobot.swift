@@ -22,6 +22,10 @@ class ScrumListRobot: Robot {
         Title.dailyScrums.element
     }
 
+    func scrumCard(withTitle title: String) -> XCUIElement {
+        View.scrumCard(withTitle: title)
+    }
+
     private func meetingTitleLabel(meetingName: String) -> XCUIElement {
         app.staticTexts[meetingName]
     }
@@ -62,6 +66,12 @@ class ScrumListRobot: Robot {
     func tapAppNewScrumButton() -> AddScrumRobot {
         addScrumButton.tap()
         return AddScrumRobot()
+    }
+
+    @discardableResult
+    func tapScrumCard(withTitle title: String) -> DetailScrumRobot {
+        scrumCard(withTitle: title).tap()
+        return DetailScrumRobot()
     }
 
 }
