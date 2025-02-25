@@ -47,11 +47,38 @@ class DetailScrumRobot: Robot {
         Button.backToDailyScrums.element
     }
 
+    private var startMeetingButton: XCUIElement {
+        Button.startMeeting.element
+    }
+
+    private func meetingHistoryRow(date: String) -> XCUIElement {
+        app.staticTexts[date]
+            .firstMatch
+    }
+
+    //MARK: Interactions
 
     @discardableResult
     func tapBackButton() -> ScrumListRobot {
         backButton.tap()
         return ScrumListRobot()
+    }
+
+    @discardableResult
+    func tapStartMeetingButton() -> MeetingScrumRobot {
+        startMeetingButton.tap()
+        return MeetingScrumRobot()
+    }
+
+    @discardableResult
+    func tapHistoricalMeeting() -> HistoricalMeetingRobot {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMMM yyyy"
+        let todaysDate = dateFormatter.string(from: .now)
+
+        meetingHistoryRow(date: todaysDate).tap()
+        return HistoricalMeetingRobot()
+
     }
 
     //MARK: - Validation
@@ -82,6 +109,23 @@ class DetailScrumRobot: Robot {
     @discardableResult
     func attendeeExists(name: String) -> DetailScrumRobot {
         XCTAssertTrue(detailLabel(name).exists)
+        return self
+    }
+
+    @discardableResult
+    func meetingHistoryExists(exists: Bool) -> DetailScrumRobot {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMMM yyyy"
+        let todaysDate = dateFormatter.string(from: .now)
+
+        let historyRow = meetingHistoryRow(date: todaysDate)
+
+        if exists {
+            XCTAssertTrue(historyRow.waitForExistence(timeout: 2), "Expected meeting history row to exist but it doesn't.")
+        } else {
+            XCTAssertFalse(historyRow.waitForExistence(timeout: 2), "Expected meeting history row to be absent but it exists.")
+        }
+
         return self
     }
 
