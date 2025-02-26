@@ -26,19 +26,6 @@ class AddScrumTests: XCTestCase {
 
     func testAddScrum() {
         AppRobot()
-            .launchApp()
-            .tapAppNewScrumButton()
-            .inputTitleText("Design Meeting")
-            .setLengthSlider(1.0)
-            .tapSelectThemeButton()
-            .tapOrangeThemeButton()
-            .addNewAttendee("John")
-            .addNewAttendee("Alice")
-            .addNewAttendee("Bob")
-            .deleteAttendee("Alice")
-            .tapCreateScrumButton()
-            .meetingTitleLabelExists(title: "Design Meeting")
-            .attendeeCountExists(attendeesCount: 2)
-            .meetingLengthLabel(minutes: 30)
+            .launchAppWithNewScrum()
     }
 }

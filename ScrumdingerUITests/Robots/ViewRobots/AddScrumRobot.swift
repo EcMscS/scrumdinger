@@ -5,6 +5,7 @@
 //  Created by Matt Heaney on 24/02/2025.
 //
 
+import Foundation
 import XCTest
 
 class AddScrumRobot: Robot {
@@ -124,10 +125,12 @@ class AddScrumRobot: Robot {
     }
 
     @discardableResult
-    func addNewAttendee(_ attendee: String) -> AddScrumRobot {
-        attendeeField.tap()
-        attendeeField.typeText(attendee)
-        addAttendeeButton.tap()
+    func addNewAttendees(_ attendees: [String]) -> AddScrumRobot {
+        attendees.forEach {
+            attendeeField.tap()
+            attendeeField.typeText($0)
+            addAttendeeButton.tap()
+        }
         return self
     }
 
