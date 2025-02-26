@@ -10,27 +10,12 @@ class DetailScrumTests: XCTestCase {
 
     func testNavigateBack() {
         AppRobot()
-            .launchApp()
-            .tapAppNewScrumButton()
-            .inputTitleText("Design Meeting")
-            .tapCreateScrumButton()
-            .tapScrumCard(withTitle: "Design Meeting")
-            .tapBackButton()
+            .launchAppWithNewScrum()
     }
 
     func testScrumDetailsInfo() {
         AppRobot()
-            .launchApp()
-            .tapAppNewScrumButton()
-            .inputTitleText("Design Meeting")
-            .setLengthSlider(1.0)
-            .tapSelectThemeButton()
-            .tapOrangeThemeButton()
-            .addNewAttendees(["John", "Alice", "Bob"])
-            .tapCreateScrumButton()
-            .meetingTitleLabelExists(title: "Design Meeting")
-            .attendeeCountExists(attendeesCount: 3)
-            .meetingLengthLabel(minutes: 30)
+            .launchAppWithNewScrum()
             .tapScrumCard(withTitle: "Design Meeting")
             .meetingTitleLabelExists(title: "Design Meeting")
             .meetingLengthLabel(minutes: 30)

@@ -15,6 +15,7 @@ class AppRobot: Robot {
         return ScrumListRobot()
     }
 
+    ///Launches the app and handles the standard process to add a new scrum meeting, validating the scrum details appear as expected in the scrum list
     @discardableResult
     func launchAppWithNewScrum(scrumName: String = "Design Meeting",
                                attendees: [String] = ["John", "Alice", "Bob"],

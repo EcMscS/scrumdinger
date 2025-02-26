@@ -10,14 +10,7 @@ class MeetingScrumTests: XCTestCase {
 
     func testSkipSpeaker() {
         AppRobot()
-            .launchApp()
-            .tapAppNewScrumButton()
-            .inputTitleText("Design Meeting")
-            .setLengthSlider(1.0)
-            .tapSelectThemeButton()
-            .tapOrangeThemeButton()
-            .addNewAttendees(["John", "Alice"])
-            .tapCreateScrumButton()
+            .launchAppWithNewScrum(attendees: ["John", "Alice"])
             .tapScrumCard(withTitle: "Design Meeting")
             .tapStartMeetingButton()
             .speakerTextExists(speakerName: "John")
@@ -27,14 +20,7 @@ class MeetingScrumTests: XCTestCase {
 
     func testEndMeetingEarly() {
         AppRobot()
-            .launchApp()
-            .tapAppNewScrumButton()
-            .inputTitleText("Design Meeting")
-            .setLengthSlider(1.0)
-            .tapSelectThemeButton()
-            .tapOrangeThemeButton()
-            .addNewAttendees(["John", "Alice"])
-            .tapCreateScrumButton()
+            .launchAppWithNewScrum(attendees: ["John", "Alice"])
             .tapScrumCard(withTitle: "Design Meeting")
             .meetingHistoryExists(exists: false)
             .tapStartMeetingButton()
