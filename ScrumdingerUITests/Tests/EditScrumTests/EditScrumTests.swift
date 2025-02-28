@@ -17,7 +17,7 @@ class EditScrumTests: XCTestCase {
             .inputScrumTitle(" Changed")
             .setDurationSlider(0.0)
             .tapThemeSelectionButton()
-            .tapThemeNavyButton()
+            .tapThemeOxbloodButton()
             .addAttendees(["Bob"])
             .tapCancelButton()
             .verifyMeetingThemeExists(named: "Orange")

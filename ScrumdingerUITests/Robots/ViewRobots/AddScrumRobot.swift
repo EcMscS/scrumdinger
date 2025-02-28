@@ -35,7 +35,7 @@ class AddScrumRobot: Robot {
         Button.orange.element
     }
 
-    private var themeNavyButton: XCUIElement {
+    private var themeOxbloodButton: XCUIElement {
         Button.oxblood.element
     }
 
@@ -128,8 +128,8 @@ class AddScrumRobot: Robot {
     }
 
     @discardableResult
-    func tapThemeNavyButton() -> AddScrumRobot {
-        themeNavyButton.tap()
+    func tapThemeOxbloodButton() -> AddScrumRobot {
+        themeOxbloodButton.tap()
         return self
     }
 
