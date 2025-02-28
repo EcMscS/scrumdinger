@@ -8,11 +8,6 @@ import XCTest
 
 class DetailScrumTests: XCTestCase {
 
-    func testNavigateBack() {
-        AppRobot()
-            .launchAppWithNewScrum()
-    }
-
     func testScrumDetailsInfo() {
         AppRobot()
             .launchAppWithNewScrum()
