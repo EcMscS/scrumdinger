@@ -22,16 +22,16 @@ class AppRobot: Robot {
                                meetingLengthValue: CGFloat = 1.0,
                                meetingMinutes: Int = 30) -> ScrumListRobot {
         self.launchApp()
-            .tapAppNewScrumButton()
-            .inputTitleText(scrumName)
-            .setLengthSlider(meetingLengthValue)
-            .tapSelectThemeButton()
-            .tapOrangeThemeButton()
-            .addNewAttendees(attendees)
+            .tapAddScrumButton()
+            .inputScrumTitle(scrumName)
+            .setDurationSlider(meetingLengthValue)
+            .tapThemeSelectionButton()
+            .tapThemeOrangeButton()
+            .addAttendees(attendees)
             .tapCreateScrumButton()
-            .meetingTitleLabelExists(title: scrumName)
-            .attendeeCountExists(attendeesCount: attendees.count)
-            .meetingLengthLabel(minutes: meetingMinutes)
+            .verifyScrumTitleExists(named: scrumName)
+            .verifyAttendeeCountExists(count: attendees.count)
+            .verifyMeetingLengthExists(minutes: meetingMinutes)
     }
 
     func terminateApp() {

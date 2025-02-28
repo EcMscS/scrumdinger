@@ -10,12 +10,12 @@ import XCTest
 class MeetingScrumRobot: Robot {
 
     init() {
-        XCTAssertTrue(secondsElapsed.waitForExistence(timeout: 5), "Expected 'Meeting Scrum' screen, but it didn't appear")
+        XCTAssertTrue(secondsElapsedLabel.waitForExistence(timeout: 5), "Expected 'Meeting Scrum' screen, but it didn't appear")
     }
 
-    //MARK: - Elements
+    // MARK: - Elements
 
-    private func speakerText(name: String) -> XCUIElement {
+    private func speakerLabel(named name: String) -> XCUIElement {
         app.staticTexts[name]
     }
 
@@ -23,36 +23,33 @@ class MeetingScrumRobot: Robot {
         Button.forward.element
     }
 
-    private var secondsElapsed: XCUIElement {
-        app.staticTexts
-            .matching(identifier: "Seconds Elapsed")
-            .firstMatch
+    private var secondsElapsedLabel: XCUIElement {
+        app.staticTexts["Seconds Elapsed"]
     }
 
-    private func backToScrumMeeting(meetingName: String) -> XCUIElement {
-        app.buttons
-            .matching(identifier: meetingName)
-            .firstMatch
+    private func backToScrumButton(named meetingName: String) -> XCUIElement {
+        app.buttons[meetingName]
     }
 
-    //MARK: - Validation
+    // MARK: - Validations
+
     @discardableResult
-    func speakerTextExists(speakerName name: String) -> MeetingScrumRobot {
-        XCTAssertTrue(speakerText(name: name).exists)
+    func verifySpeakerExists(named name: String) -> Self {
+        XCTAssertTrue(speakerLabel(named: name).exists)
         return self
     }
-    
-    //MARK: - Interaction
+
+    // MARK: - Interactions
+
     @discardableResult
-    func tapSkip() -> MeetingScrumRobot {
+    func tapSkipButton() -> Self {
         skipButton.tap()
         return self
     }
 
     @discardableResult
-    func tapBackToMeeting(meetingName: String) -> DetailScrumRobot {
-        backToScrumMeeting(meetingName: meetingName).tap()
+    func tapBackToScrum(named meetingName: String) -> DetailScrumRobot {
+        backToScrumButton(named: meetingName).tap()
         return DetailScrumRobot()
     }
-
 }

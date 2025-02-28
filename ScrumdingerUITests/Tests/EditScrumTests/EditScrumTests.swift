@@ -12,18 +12,18 @@ class EditScrumTests: XCTestCase {
         AppRobot()
             .launchAppWithNewScrum()
             .tapScrumCard(withTitle: "Design Meeting")
-            .colorLabelExists(color: "Orange")
+            .verifyMeetingThemeExists(named: "Orange")
             .tapEditButton()
-            .inputTitleText(" Changed")
-            .setLengthSlider(0.0)
-            .tapSelectThemeButton()
-            .tapNavyThemeButton()
-            .addNewAttendees(["Bob"])
+            .inputScrumTitle(" Changed")
+            .setDurationSlider(0.0)
+            .tapThemeSelectionButton()
+            .tapThemeNavyButton()
+            .addAttendees(["Bob"])
             .tapCancelButton()
-            .colorLabelExists(color: "Orange")
+            .verifyMeetingThemeExists(named: "Orange")
             .tapBackButton()
-            .attendeeCountExists(attendeesCount: 3)
-            .meetingLengthLabel(minutes: 30)
+            .verifyAttendeeCountExists(count: 3)
+            .verifyMeetingLengthExists(minutes: 30)
     }
 
 
@@ -32,10 +32,10 @@ class EditScrumTests: XCTestCase {
             .launchAppWithNewScrum()
             .tapScrumCard(withTitle: "Design Meeting")
             .tapEditButton()
-            .inputTitleText(" Changed")
+            .inputScrumTitle(" Changed")
             .tapDoneButton()
             .tapBackButton()
-            .meetingTitleLabelExists(title: "Design Meeting Changed")
+            .verifyScrumTitleExists(named: "Design Meeting Changed")
     }
 
     func testEditLength() {
@@ -43,10 +43,10 @@ class EditScrumTests: XCTestCase {
             .launchAppWithNewScrum()
             .tapScrumCard(withTitle: "Design Meeting")
             .tapEditButton()
-            .setLengthSlider(0.0)
+            .setDurationSlider(0.0)
             .tapDoneButton()
             .tapBackButton()
-            .meetingLengthLabel(minutes: 5)
+            .verifyMeetingLengthExists(minutes: 5)
     }
 
     func testAddAttendee() {
@@ -54,9 +54,9 @@ class EditScrumTests: XCTestCase {
             .launchAppWithNewScrum(attendees: ["John"])
             .tapScrumCard(withTitle: "Design Meeting")
             .tapEditButton()
-            .addNewAttendees(["Matt"])
+            .addAttendees(["Matt"])
             .tapDoneButton()
             .tapBackButton()
-            .attendeeCountExists(attendeesCount: 2)
+            .verifyAttendeeCountExists(count: 2)
     }
 }

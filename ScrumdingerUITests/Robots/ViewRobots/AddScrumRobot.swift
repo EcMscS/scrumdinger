@@ -14,11 +14,7 @@ class AddScrumRobot: Robot {
         XCTAssertTrue(addScrumButton.waitForExistence(timeout: 5), "Expected 'AddScrumRobot' screen, but it didn't appear")
     }
 
-    //MARK: - Elements
-    private var dismissScrumButton: XCUIElement {
-        Button.dismiss.element
-    }
-    
+    // MARK: - Elements
     private var addScrumButton: XCUIElement {
         Button.add.element
     }
@@ -27,28 +23,36 @@ class AddScrumRobot: Robot {
         TextField.title.element
     }
 
-    private var lengthSlider: XCUIElement {
+    private var durationSlider: XCUIElement {
         Slider.length.element
     }
 
-    private var selectThemeButton: XCUIElement {
+    private var themeSelectionButton: XCUIElement {
         Button.paintpalette.element
     }
 
-    private var orangeThemeButton: XCUIElement {
+    private var themeOrangeButton: XCUIElement {
         Button.orange.element
     }
 
-    private var navyThemeButton: XCUIElement {
+    private var themeNavyButton: XCUIElement {
         Button.oxblood.element
     }
 
-    private var attendeeField: XCUIElement {
+    private var attendeeNameField: XCUIElement {
         TextField.newAttendee.element
     }
 
     private var addAttendeeButton: XCUIElement {
         Button.addAttendee.element
+    }
+
+    private func attendeeCell(for name: String) -> XCUIElement {
+        app.staticTexts[name]
+    }
+
+    private  var deleteAttendeeButton: XCUIElement {
+        Button.delete.element
     }
 
     private var cancelButton: XCUIElement {
@@ -59,22 +63,52 @@ class AddScrumRobot: Robot {
         Button.done.element
     }
 
-    func attendeeCell(for name: String) -> XCUIElement {
-        app.staticTexts[name]
+    private var dismissScrumButton: XCUIElement {
+        Button.dismiss.element
     }
 
-    private var deleteButton: XCUIElement {
-        Button.delete.element
+    // MARK: - Validation
+
+    // (Placeholder for validation methods, if needed)
+
+    // MARK: - Interaction
+
+    @discardableResult
+    func inputScrumTitle(_ text: String) -> Self {
+        titleTextField.tap()
+        titleTextField.typeText(text)
+        return self
     }
 
-    //MARK: - Validation
+    @discardableResult
+    func setDurationSlider(_ duration: CGFloat) -> Self {
+        durationSlider.adjust(toNormalizedSliderPosition: duration)
+        return self
+    }
+
+    @discardableResult
+    func addAttendees(_ attendees: [String]) -> Self {
+        attendees.forEach {
+            attendeeNameField.tap()
+            attendeeNameField.typeText($0)
+            addAttendeeButton.tap()
+        }
+        return self
+    }
+
+    @discardableResult
+    func deleteAttendee(named attendee: String) -> Self {
+        attendeeCell(for: attendee).swipeLeft()
+        deleteAttendeeButton.tap()
+        return self
+    }
+
     @discardableResult
     func tapCreateScrumButton() -> ScrumListRobot {
         addScrumButton.tap()
         return ScrumListRobot()
     }
 
-    //MARK: - Interaction
     @discardableResult
     func tapDismissScrumButton() -> ScrumListRobot {
         dismissScrumButton.tap()
@@ -82,20 +116,20 @@ class AddScrumRobot: Robot {
     }
 
     @discardableResult
-    func tapSelectThemeButton() -> AddScrumRobot {
-        selectThemeButton.tap()
+    func tapThemeSelectionButton() -> AddScrumRobot {
+        themeSelectionButton.tap()
         return self
     }
 
     @discardableResult
-    func tapOrangeThemeButton() -> AddScrumRobot {
-        orangeThemeButton.tap()
+    func tapThemeOrangeButton() -> AddScrumRobot {
+        themeOrangeButton.tap()
         return self
     }
 
     @discardableResult
-    func tapNavyThemeButton() -> AddScrumRobot {
-        navyThemeButton.tap()
+    func tapThemeNavyButton() -> AddScrumRobot {
+        themeNavyButton.tap()
         return self
     }
 
@@ -111,33 +145,4 @@ class AddScrumRobot: Robot {
         return DetailScrumRobot()
     }
 
-    @discardableResult
-    func inputTitleText(_ text: String) -> AddScrumRobot {
-        titleTextField.tap()
-        titleTextField.typeText(text)
-        return self
-    }
-
-    @discardableResult
-    func setLengthSlider(_ length: CGFloat) -> AddScrumRobot {
-        lengthSlider.adjust(toNormalizedSliderPosition: length)
-        return self
-    }
-
-    @discardableResult
-    func addNewAttendees(_ attendees: [String]) -> AddScrumRobot {
-        attendees.forEach {
-            attendeeField.tap()
-            attendeeField.typeText($0)
-            addAttendeeButton.tap()
-        }
-        return self
-    }
-
-    @discardableResult
-    func deleteAttendee(_ attendee: String) -> AddScrumRobot {
-        attendeeCell(for: attendee).swipeLeft()
-        deleteButton.tap()
-        return self
-    }
 }

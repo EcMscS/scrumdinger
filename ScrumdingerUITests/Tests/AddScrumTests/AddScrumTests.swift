@@ -11,17 +11,17 @@ class AddScrumTests: XCTestCase {
     func testDismissAddScrum() {
         AppRobot()
             .launchApp()
-            .tapAppNewScrumButton()
+            .tapAddScrumButton()
             .tapDismissScrumButton()
     }
 
     func testAddEmptyScrum() {
         AppRobot()
             .launchApp()
-            .tapAppNewScrumButton()
+            .tapAddScrumButton()
             .tapCreateScrumButton()
-            .attendeeCountExists(attendeesCount: 0)
-            .meetingLengthLabel(minutes: 5)
+            .verifyAttendeeCountExists(count: 0)
+            .verifyMeetingLengthExists(minutes: 5)
     }
 
     func testAddScrum() {

@@ -13,21 +13,21 @@ class MeetingScrumTests: XCTestCase {
             .launchAppWithNewScrum(attendees: ["John", "Alice"])
             .tapScrumCard(withTitle: "Design Meeting")
             .tapStartMeetingButton()
-            .speakerTextExists(speakerName: "John")
-            .tapSkip()
-            .speakerTextExists(speakerName: "Alice")
+            .verifySpeakerExists(named: "John")
+            .tapSkipButton()
+            .verifySpeakerExists(named: "Alice")
     }
 
     func testEndMeetingEarly() {
         AppRobot()
             .launchAppWithNewScrum(attendees: ["John", "Alice"])
             .tapScrumCard(withTitle: "Design Meeting")
-            .meetingHistoryExists(exists: false)
+            .verifyMeetingHistoryExists(exists: false)
             .tapStartMeetingButton()
-            .tapBackToMeeting(meetingName: "Design Meeting")
-            .meetingHistoryExists(exists: true)
+            .tapBackToScrum(named: "Design Meeting")
+            .verifyMeetingHistoryExists(exists: true)
             .tapHistoricalMeeting()
-            .speakerTextExists(text: "John and Alice")
-            .transcriptTextExists()
+            .verifySpeakersExists(named: "John and Alice")
+            .verifyTranscriptExists()
     }
 }

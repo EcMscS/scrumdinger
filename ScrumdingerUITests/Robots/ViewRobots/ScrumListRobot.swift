@@ -10,60 +10,63 @@ import XCTest
 class ScrumListRobot: Robot {
 
     init() {
-        XCTAssertTrue(titleText.waitForExistence(timeout: 5), "Expected 'ScrumListRobot' screen, but it didn't appear")
+        XCTAssertTrue(titleLabel.waitForExistence(timeout: 5), "Expected 'ScrumListRobot' screen, but it didn't appear")
     }
 
-    //MARK: - Elements
+    // MARK: - Elements
+
     private var addScrumButton: XCUIElement {
         Button.plus.element
     }
 
-    private var titleText: XCUIElement {
+    private var titleLabel: XCUIElement {
         Title.dailyScrums.element
     }
 
-    func scrumCard(withTitle title: String) -> XCUIElement {
+    private func scrumCard(withTitle title: String) -> XCUIElement {
         View.scrumCard(withTitle: title)
     }
 
-    private func meetingTitleLabel(meetingName: String) -> XCUIElement {
-        app.staticTexts[meetingName]
+    private func scrumTitleLabel(named title: String) -> XCUIElement {
+        app.staticTexts[title]
     }
 
-    private func attendeeCountLabel(count: Int) -> XCUIElement {
+    private func attendeeCountLabel(for count: Int) -> XCUIElement {
         app.staticTexts
             .matching(identifier: "\(count) attendees")
             .firstMatch
     }
 
-    private func meetingLengthLabel(minutes: Int) -> XCUIElement {
-            app.staticTexts
-                .matching(identifier: "\(minutes) minute meeting")
-                .firstMatch
+    private func meetingLengthLabel(for minutes: Int) -> XCUIElement {
+        app.staticTexts
+            .matching(identifier: "\(minutes) minute meeting")
+            .firstMatch
     }
 
-    //MARK: - Validation
+    // MARK: - Validations
+
     @discardableResult
-    func meetingTitleLabelExists(title: String) -> ScrumListRobot {
-        XCTAssertTrue(meetingTitleLabel(meetingName: title).exists)
+    func verifyScrumTitleExists(named title: String) -> Self {
+        XCTAssertTrue(scrumTitleLabel(named: title).exists)
         return self
     }
 
     @discardableResult
-    func attendeeCountExists(attendeesCount: Int) -> ScrumListRobot {
-        XCTAssertTrue(attendeeCountLabel(count: attendeesCount).exists)
+    func verifyAttendeeCountExists(count: Int) -> Self {
+        XCTAssertTrue(attendeeCountLabel(for: count).exists)
         return self
     }
 
     @discardableResult
-    func meetingLengthLabel(minutes: Int) -> ScrumListRobot {
-        XCTAssertTrue(meetingLengthLabel(minutes: minutes).exists)
+    func verifyMeetingLengthExists(minutes: Int) -> Self {
+        XCTAssertTrue(meetingLengthLabel(for: minutes).exists)
         return self
     }
 
-    //MARK: - Interaction
+    // MARK: - Interactions
+
     @discardableResult
-    func tapAppNewScrumButton() -> AddScrumRobot {
+    func tapAddScrumButton() -> AddScrumRobot {
         addScrumButton.tap()
         return AddScrumRobot()
     }
@@ -73,5 +76,4 @@ class ScrumListRobot: Robot {
         scrumCard(withTitle: title).tap()
         return DetailScrumRobot()
     }
-
 }

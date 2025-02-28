@@ -13,38 +13,34 @@ class DetailScrumRobot: Robot {
         XCTAssertTrue(meetingInfoTitle.waitForExistence(timeout: 5), "Expected 'Daily Scrum' screen, but it didn't appear")
     }
 
-    //MARK: - Elements
+    // MARK: - Elements
 
     private var meetingInfoTitle: XCUIElement {
-            app.staticTexts
-                .matching(identifier: "MEETING INFO")
-                .firstMatch
+        app.staticTexts["MEETING INFO"]
     }
 
-    private func meetingTitleLabel(meetingName: String) -> XCUIElement {
-        app.staticTexts[meetingName]
+    private func meetingTitleLabel(named title: String) -> XCUIElement {
+        app.staticTexts[title]
     }
 
-    private func meetingThemeLabel(themeName: String) -> XCUIElement {
-        app.staticTexts[themeName]
+    private func meetingThemeLabel(named theme: String) -> XCUIElement {
+        app.staticTexts[theme]
     }
 
-    private func attendeeCountLabel(count: Int) -> XCUIElement {
-        app.staticTexts
-            .matching(identifier: "\(count) attendees")
-            .firstMatch
+    private func attendeeCountLabel(for count: Int) -> XCUIElement {
+        app.staticTexts["\(count) attendees"]
     }
 
-    private func meetingLengthLabel(minutes: Int) -> XCUIElement {
-        app.staticTexts
-            .matching(identifier: "\(minutes) minutes")
-            .firstMatch
+    private func meetingLengthLabel(for minutes: Int) -> XCUIElement {
+        app.staticTexts["\(minutes) minutes"]
     }
 
-    private func detailLabel(_ text: String) -> XCUIElement {
-        app.staticTexts
-            .matching(identifier: text)
-            .firstMatch
+    private func detailLabel(text: String) -> XCUIElement {
+        app.staticTexts[text]
+    }
+
+    private func meetingHistoryRow(for date: String) -> XCUIElement {
+        app.staticTexts[date].firstMatch
     }
 
     private var backButton: XCUIElement {
@@ -59,12 +55,7 @@ class DetailScrumRobot: Robot {
         Button.startMeeting.element
     }
 
-    private func meetingHistoryRow(date: String) -> XCUIElement {
-        app.staticTexts[date]
-            .firstMatch
-    }
-
-    //MARK: Interactions
+    // MARK: - Interactions
 
     @discardableResult
     func tapBackButton() -> ScrumListRobot {
@@ -90,55 +81,55 @@ class DetailScrumRobot: Robot {
         dateFormatter.dateFormat = "d MMMM yyyy"
         let todaysDate = dateFormatter.string(from: .now)
 
-        meetingHistoryRow(date: todaysDate).tap()
+        meetingHistoryRow(for: todaysDate).tap()
         return HistoricalMeetingRobot()
-
     }
 
-    //MARK: - Validation
+    // MARK: - Validations
+
     @discardableResult
-    func meetingTitleLabelExists(title: String) -> DetailScrumRobot {
-        XCTAssertTrue(meetingTitleLabel(meetingName: title).exists)
+    func verifyMeetingTitleExists(named title: String) -> Self {
+        XCTAssertTrue(meetingTitleLabel(named: title).exists)
         return self
     }
 
     @discardableResult
-    func meetingThemeLabelExists(color: String) -> DetailScrumRobot {
-        XCTAssertTrue(meetingThemeLabel(themeName: color).exists)
+    func verifyMeetingThemeExists(named theme: String) -> Self {
+        XCTAssertTrue(meetingThemeLabel(named: theme).exists)
         return self
     }
 
     @discardableResult
-    func attendeeCountExists(attendeesCount: Int) -> DetailScrumRobot {
-        XCTAssertTrue(attendeeCountLabel(count: attendeesCount).exists)
+    func verifyAttendeeCountExists(count: Int) -> Self {
+        XCTAssertTrue(attendeeCountLabel(for: count).exists)
         return self
     }
 
     @discardableResult
-    func meetingLengthLabel(minutes: Int) -> DetailScrumRobot {
-        XCTAssertTrue(meetingLengthLabel(minutes: minutes).exists)
+    func verifyMeetingLengthExists(minutes: Int) -> Self {
+        XCTAssertTrue(meetingLengthLabel(for: minutes).exists)
         return self
     }
 
     @discardableResult
-    func colorLabelExists(color: String) -> DetailScrumRobot {
-        XCTAssertTrue(detailLabel(color).exists)
+    func verifyDetailLabelExists(text: String) -> Self {
+        XCTAssertTrue(detailLabel(text: text).exists)
         return self
     }
 
     @discardableResult
-    func attendeeExists(name: String) -> DetailScrumRobot {
-        XCTAssertTrue(detailLabel(name).exists)
+    func verifyAttendeeExists(named name: String) -> Self {
+        XCTAssertTrue(detailLabel(text: name).exists)
         return self
     }
 
     @discardableResult
-    func meetingHistoryExists(exists: Bool) -> DetailScrumRobot {
+    func verifyMeetingHistoryExists(exists: Bool) -> Self {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d MMMM yyyy"
         let todaysDate = dateFormatter.string(from: .now)
 
-        let historyRow = meetingHistoryRow(date: todaysDate)
+        let historyRow = meetingHistoryRow(for: todaysDate)
 
         if exists {
             XCTAssertTrue(historyRow.waitForExistence(timeout: 2), "Expected meeting history row to exist but it doesn't.")
@@ -148,5 +139,4 @@ class DetailScrumRobot: Robot {
 
         return self
     }
-
 }

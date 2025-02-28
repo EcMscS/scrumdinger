@@ -13,14 +13,14 @@ class HistoricalMeetingRobot: Robot {
         XCTAssertTrue(transcriptTitle.waitForExistence(timeout: 5), "Expected 'Historical Meeting' screen, but it didn't appear")
     }
 
-    //MARK: - Elements
+    // MARK: - Elements
 
     private var transcriptTitle: XCUIElement {
         app.staticTexts["Transcript"]
     }
 
-    func attendeeText(text: String) -> XCUIElement {
-        app.staticTexts[text]
+    private func speakerLabel(named name: String) -> XCUIElement {
+        app.staticTexts[name]
     }
 
     private var transcriptText: XCUIElement {
@@ -29,20 +29,19 @@ class HistoricalMeetingRobot: Robot {
         ).firstMatch
     }
 
-    //MARK: - Validation
+    // MARK: - Validations
 
     @discardableResult
-    func speakerTextExists(text: String) -> HistoricalMeetingRobot {
-        XCTAssertTrue(attendeeText(text: text).exists)
+    func verifySpeakersExists(named name: String) -> Self {
+        XCTAssertTrue(speakerLabel(named: name).exists)
         return self
     }
-    
+
     @discardableResult
-    func transcriptTextExists() -> HistoricalMeetingRobot {
+    func verifyTranscriptExists() -> Self {
         XCTAssertTrue(transcriptText.exists)
         return self
     }
 
-    //MARK: - Interaction
-
+    // MARK: - Interactions
 }

@@ -17,11 +17,11 @@ class DetailScrumTests: XCTestCase {
         AppRobot()
             .launchAppWithNewScrum()
             .tapScrumCard(withTitle: "Design Meeting")
-            .meetingTitleLabelExists(title: "Design Meeting")
-            .meetingLengthLabel(minutes: 30)
-            .colorLabelExists(color: "Orange")
-            .attendeeExists(name: "John")
-            .attendeeExists(name: "Alice")
-            .attendeeExists(name: "Bob")
+            .verifyMeetingTitleExists(named: "Design Meeting")
+            .verifyMeetingLengthExists(minutes: 30)
+            .verifyMeetingThemeExists(named: "Orange")
+            .verifyAttendeeExists(named: "John")
+            .verifyAttendeeExists(named: "Alice")
+            .verifyAttendeeExists(named: "Bob")
     }
 }
