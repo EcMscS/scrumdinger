@@ -7,7 +7,6 @@
 import XCTest
 
 class MeetingScrumTests: XCTestCase {
-
     func testSkipSpeaker() {
         AppRobot()
             .launchAppWithNewScrum(attendees: ["John", "Alice"])

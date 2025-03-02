@@ -7,7 +7,6 @@
 import XCTest
 
 class EditScrumTests: XCTestCase {
-
     func testCancelAllChanges() {
         AppRobot()
             .launchAppWithNewScrum()
@@ -25,7 +24,6 @@ class EditScrumTests: XCTestCase {
             .verifyAttendeeCountExists(count: 3)
             .verifyMeetingLengthExists(minutes: 30)
     }
-
 
     func testEditTitle() {
         AppRobot()

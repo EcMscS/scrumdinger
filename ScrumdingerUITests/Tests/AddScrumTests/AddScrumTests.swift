@@ -7,7 +7,6 @@
 import XCTest
 
 class AddScrumTests: XCTestCase {
-
     func testDismissAddScrum() {
         AppRobot()
             .launchApp()
