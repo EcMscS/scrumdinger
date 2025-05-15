@@ -12,7 +12,7 @@ public final class MockSpeechService: SpeechServiceProtocol, @unchecked Sendable
     private var shouldSimulateError: Bool
     private var simulatedTexts: [String]
     private var currentTextIndex: Int = 0
-    
+
     public init(
         shouldSimulateError: Bool = false,
         simulatedTexts: [String] = ["Hello", "This is a test", "Final transcript"]
@@ -20,23 +20,23 @@ public final class MockSpeechService: SpeechServiceProtocol, @unchecked Sendable
         self.shouldSimulateError = shouldSimulateError
         self.simulatedTexts = simulatedTexts
     }
-    
+
     @MainActor
     public func requestPermissions() async throws(SpeechServiceError) {
         if shouldSimulateError {
             throw .notAuthorizedToRecognize
         }
     }
-    
+
     @MainActor
     public func startRecording() throws(SpeechServiceError) -> AsyncThrowingStream<String, Error> {
         if shouldSimulateError {
             throw .recognizerUnavailable
         }
-        
+
         return AsyncThrowingStream { continuation in
             self.continuationHandler = continuation
-            
+
             // Simulate speech recognition with a timer
             Task {
                 for text in simulatedTexts {
@@ -49,7 +49,7 @@ public final class MockSpeechService: SpeechServiceProtocol, @unchecked Sendable
             }
         }
     }
-    
+
     public func stopRecording() {
         continuationHandler?.finish()
         continuationHandler = nil

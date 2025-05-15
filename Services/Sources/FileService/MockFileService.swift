@@ -9,7 +9,7 @@ import Foundation
 public class MockFileService: @unchecked Sendable {
     private var storage: [String: Any] = [:]
     private var shouldThrow: Bool
-    
+
     public init(shouldThrow: Bool = false) {
         self.shouldThrow = shouldThrow
     }
@@ -25,7 +25,7 @@ extension MockFileService: FileServiceProtocol {
         }
         storage[key] = objects
     }
-    
+
     public func load<T: Decodable>(
         forKey key: String
     ) throws(FileServiceError) -> [T] {

@@ -15,7 +15,7 @@ let package = Package(
 
 // MARK: PackageProduct
 
-fileprivate enum PackageProduct: CaseIterable {
+private enum PackageProduct: CaseIterable {
     case viewComponents
 
     var name: String {
@@ -44,7 +44,7 @@ fileprivate enum PackageProduct: CaseIterable {
 
 // MARK: InternalTarget
 
-fileprivate enum InternalTarget: CaseIterable {
+private enum InternalTarget: CaseIterable {
     case viewComponents
 
     var title: String {

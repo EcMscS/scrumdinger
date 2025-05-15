@@ -16,7 +16,7 @@ let package = Package(
 
 // MARK: PackageProduct
 
-fileprivate enum PackageProduct: CaseIterable {
+private enum PackageProduct: CaseIterable {
     case scrumdinger
 
     var name: String {
@@ -45,7 +45,7 @@ fileprivate enum PackageProduct: CaseIterable {
 
 // MARK: InternalTarget
 
-fileprivate enum InternalTarget: CaseIterable {
+private enum InternalTarget: CaseIterable {
     case configuration
     case resources
     case scrum
@@ -67,19 +67,19 @@ fileprivate enum InternalTarget: CaseIterable {
         case .configuration:
             [
                 SwiftPackage.models.targetDependency,
-                SwiftPackage.services.targetDependency,
+                SwiftPackage.services.targetDependency
             ]
         case .resources:
             [
                 SwiftPackage.models.targetDependency,
-                SwiftPackage.viewComponents.targetDependency,
+                SwiftPackage.viewComponents.targetDependency
             ]
         case .scrum:
             [
                 InternalTarget.resources.targetDependency,
                 SwiftPackage.models.targetDependency,
                 SwiftPackage.services.targetDependency,
-                SwiftPackage.viewComponents.targetDependency,
+                SwiftPackage.viewComponents.targetDependency
             ]
         }
     }
@@ -105,7 +105,7 @@ fileprivate enum InternalTarget: CaseIterable {
 
 // MARK: SwiftPackage
 
-fileprivate enum SwiftPackage: CaseIterable {
+private enum SwiftPackage: CaseIterable {
     case models
     case services
     case viewComponents

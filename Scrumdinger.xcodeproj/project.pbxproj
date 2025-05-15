@@ -121,10 +121,12 @@
 				8688108C2D5FB60800446F79 /* Sources */,
 				8688108D2D5FB60800446F79 /* Frameworks */,
 				8688108E2D5FB60800446F79 /* Resources */,
+				FAC649CF2DD61C0B000FD608 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FAC649CE2DD61623000FD608 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				868810922D5FB60800446F79 /* Scrumdinger */,
@@ -192,6 +194,7 @@
 			mainGroup = 868810872D5FB60800446F79;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				FAC649CC2DD61438000FD608 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 868810912D5FB60800446F79 /* Products */;
@@ -221,6 +224,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FAC649CF2DD61C0B000FD608 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8688108C2D5FB60800446F79 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -243,6 +266,10 @@
 			isa = PBXTargetDependency;
 			target = 8688108F2D5FB60800446F79 /* Scrumdinger */;
 			targetProxy = 868810D12D6950F700446F79 /* PBXContainerItemProxy */;
+		};
+		FAC649CE2DD61623000FD608 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = FAC649CD2DD61623000FD608 /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -376,6 +403,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Scrumdinger/Preview Content\"";
 				DEVELOPMENT_TEAM = TUYS5TF5HK;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Scrumdinger/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scrumdinger;
@@ -415,6 +443,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Scrumdinger/Preview Content\"";
 				DEVELOPMENT_TEAM = TUYS5TF5HK;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Scrumdinger/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scrumdinger;
@@ -520,6 +549,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		FAC649CC2DD61438000FD608 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.59.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		868810AC2D5FC2E100446F79 /* Scrumdinger */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -536,6 +576,11 @@
 		868810B22D5FC2E100446F79 /* ViewComponents */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ViewComponents;
+		};
+		FAC649CD2DD61623000FD608 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAC649CC2DD61438000FD608 /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

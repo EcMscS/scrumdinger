@@ -22,7 +22,7 @@ struct AddScreen {
     @State private var attendees: [DailyScrum.Attendee] = []
     @State private var length: TimeInterval = .minutes(5)
     @State private var theme: Theme = .seafoam
-    @State private var errorToPresent: FileServiceError? = nil
+    @State private var errorToPresent: FileServiceError?
 
     private var isErrorPresented: Binding<Bool> {
         .constant(errorToPresent != nil)

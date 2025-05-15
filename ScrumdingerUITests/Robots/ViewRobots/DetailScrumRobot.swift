@@ -10,7 +10,10 @@ import XCTest
 class DetailScrumRobot: Robot {
 
     init() {
-        XCTAssertTrue(meetingInfoTitle.waitForExistence(timeout: 5), "Expected 'Daily Scrum' screen, but it didn't appear")
+        XCTAssertTrue(
+          meetingInfoTitle.waitForExistence(timeout: 5),
+          "Expected 'Daily Scrum' screen, but it didn't appear"
+        )
     }
 
     // MARK: - Elements
@@ -132,9 +135,15 @@ class DetailScrumRobot: Robot {
         let historyRow = meetingHistoryRow(for: todaysDate)
 
         if exists {
-            XCTAssertTrue(historyRow.waitForExistence(timeout: 2), "Expected meeting history row to exist but it doesn't.")
+            XCTAssertTrue(
+              historyRow.waitForExistence(timeout: 2),
+              "Expected meeting history row to exist but it doesn't."
+            )
         } else {
-            XCTAssertFalse(historyRow.waitForExistence(timeout: 2), "Expected meeting history row to be absent but it exists.")
+            XCTAssertFalse(
+              historyRow.waitForExistence(timeout: 2),
+              "Expected meeting history row to be absent but it exists."
+            )
         }
 
         return self

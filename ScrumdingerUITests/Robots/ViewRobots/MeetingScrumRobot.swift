@@ -10,7 +10,10 @@ import XCTest
 class MeetingScrumRobot: Robot {
 
     init() {
-        XCTAssertTrue(secondsElapsedLabel.waitForExistence(timeout: 5), "Expected 'Meeting Scrum' screen, but it didn't appear")
+        XCTAssertTrue(
+          secondsElapsedLabel.waitForExistence(timeout: 5),
+          "Expected 'Meeting Scrum' screen, but it didn't appear"
+        )
     }
 
     // MARK: - Elements

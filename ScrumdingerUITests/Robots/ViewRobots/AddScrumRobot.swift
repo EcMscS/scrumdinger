@@ -11,7 +11,10 @@ import XCTest
 class AddScrumRobot: Robot {
 
     init() {
-        XCTAssertTrue(addScrumButton.waitForExistence(timeout: 5), "Expected 'AddScrumRobot' screen, but it didn't appear")
+        XCTAssertTrue(
+          addScrumButton.waitForExistence(timeout: 5),
+          "Expected 'AddScrumRobot' screen, but it didn't appear"
+        )
     }
 
     // MARK: - Elements

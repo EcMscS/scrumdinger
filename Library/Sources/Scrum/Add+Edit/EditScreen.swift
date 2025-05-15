@@ -22,7 +22,7 @@ struct EditScreen {
     @State private var attendees: [DailyScrum.Attendee]
     @State private var length: TimeInterval
     @State private var theme: Theme
-    @State private var errorToPresent: FileServiceError? = nil
+    @State private var errorToPresent: FileServiceError?
 
     private var isErrorPresented: Binding<Bool> {
         .constant(errorToPresent != nil)

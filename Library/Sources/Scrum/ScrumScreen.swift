@@ -13,7 +13,7 @@ import ViewComponents
 @MainActor
 public struct ScrumScreen {
     @DataStore private var scrumPath: [ScrumRoute] = []
-    @State private var routeToPresent: ScrumRoute? = nil
+    @State private var routeToPresent: ScrumRoute?
 
     public init() {}
 

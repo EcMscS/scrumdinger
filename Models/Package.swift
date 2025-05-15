@@ -10,13 +10,13 @@ let package = Package(
     products: PackageProduct.allCases.map(\.description),
     targets: [
         InternalTarget.allCases.map(\.target),
-        InternalTestTarget.allCases.map(\.target),
+        InternalTestTarget.allCases.map(\.target)
     ].flatMap { $0 }
 )
 
 // MARK: PackageProduct
 
-fileprivate enum PackageProduct: CaseIterable {
+private enum PackageProduct: CaseIterable {
     case models
 
     var name: String {
@@ -45,7 +45,7 @@ fileprivate enum PackageProduct: CaseIterable {
 
 // MARK: InternalTarget
 
-fileprivate enum InternalTarget: CaseIterable {
+private enum InternalTarget: CaseIterable {
     case enumerations
     case extensions
     case models
@@ -92,7 +92,7 @@ fileprivate enum InternalTarget: CaseIterable {
 
 // MARK: InternalTestTarget
 
-fileprivate enum InternalTestTarget: CaseIterable {
+private enum InternalTestTarget: CaseIterable {
     case extensions
 
     var title: String {

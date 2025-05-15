@@ -22,7 +22,7 @@ extension MockAudioService: AudioServiceProtocol {
         }
         playedSounds.append(file)
     }
-    
+
     public func reset() {
         playedSounds.removeAll()
     }
