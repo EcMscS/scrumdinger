@@ -45,7 +45,6 @@ extension LocalizedStringKey {
     public static let noSpeakers = LocalizedStringKey("No more speakers")
 
     // MARK: O
-    // swiftlint:disable:next identifier_name
     public static let ok = LocalizedStringKey("OK")
 
     // MARK: - S
