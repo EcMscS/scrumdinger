@@ -50,7 +50,15 @@ The goal was to transform a tutorial project into a production-ready application
 ## Installation
 1. Clone the repository
 2. Open `Scrumdinger.xcodeproj`
-3. Build and run
+3. Make sure you have SwiftLint installed on your machine:
+   ```bash
+   brew install swiftlint
+   ```
+4. Install the Git pre-commit hook to enable automatic lint checks:
+   ```bash
+   sh scripts/install-hooks.sh
+   ```
+5. Build and run the project
 
 # Features
 1. **Daily Scrum Management:**
@@ -71,6 +79,7 @@ The goal was to transform a tutorial project into a production-ready application
   - View past meetings with date stamps
   - View attendee list for past meetings
   - Access meeting transcripts
+
 
 # Contributions
 We welcome contributions focused on:
@@ -98,4 +107,3 @@ Please note that we are not accepting new feature additions at this time.
 # Credits
 Based on Apple's [iOS App Dev Training](https://developer.apple.com/tutorials/app-dev-training/getting-started-with-scrumdinger) <br>
 Inspired by the [SyncUps](https://github.com/pointfreeco/syncups) project by Point-Free Co
-

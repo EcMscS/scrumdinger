@@ -1,0 +1,26 @@
+#!/bin/bash
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.swift$')
+
+if [ -z "$STAGED_FILES" ]; then
+  exit 0
+fi
+
+echo "Running SwiftLint on staged Swift files..."
+
+PASS=true
+for file in $STAGED_FILES; do
+  if [ -f "$file" ]; then
+    swiftlint lint --strict --use-stdin < "$file"
+    if [ $? -ne 0 ]; then
+      PASS=false
+    fi
+  fi
+done
+
+if ! $PASS; then
+  echo "❌ SwiftLint failed. Please fix violations before committing."
+  exit 1
+fi
+
+exit 0
