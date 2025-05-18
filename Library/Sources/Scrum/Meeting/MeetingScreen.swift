@@ -88,7 +88,7 @@ struct MeetingScreen {
     // Updates active speaker based on elapsed time, prevents index overflow
     private func updateActiveSpeaker() {
         let newSpeakerIndex = min(speakerIndex, scrum.attendees.count - 1)
-        guard newSpeakerIndex < scrum.attendees.count else {  return }
+        guard newSpeakerIndex < scrum.attendees.count, newSpeakerIndex >= 0 else {  return }
         let newSpeaker = scrum.attendees[newSpeakerIndex]
 
         // Only update and trigger sound if the speaker actually changes
