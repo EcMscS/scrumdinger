@@ -13,7 +13,7 @@ public protocol FileServiceProtocol: Sendable {
     ///   - key: The key to use for the file name.
     /// - Throws: A `FileServiceError` describing what went wrong if the operation fails.
     func save<T: Encodable>(_ objects: [T], forKey key: String) throws(FileServiceError)
-    
+
     /// Loads an array of decodable objects from a file.
     /// - Parameter key: The key used to save the file.
     /// - Returns: An array of decoded objects.

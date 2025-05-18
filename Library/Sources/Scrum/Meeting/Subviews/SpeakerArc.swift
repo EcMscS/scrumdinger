@@ -3,7 +3,7 @@ import SwiftUI
 struct SpeakerArc: Shape {
     let speakerIndex: Int
     let totalSpeakers: Int
-    
+
     private var degreesPerSpeaker: Double {
         360.0 / Double(totalSpeakers)
     }

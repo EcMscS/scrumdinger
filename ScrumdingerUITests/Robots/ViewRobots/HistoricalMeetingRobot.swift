@@ -10,7 +10,10 @@ import XCTest
 class HistoricalMeetingRobot: Robot {
 
     init() {
-        XCTAssertTrue(transcriptTitle.waitForExistence(timeout: 5), "Expected 'Historical Meeting' screen, but it didn't appear")
+        XCTAssertTrue(
+          transcriptTitle.waitForExistence(timeout: 5),
+          "Expected 'Historical Meeting' screen, but it didn't appear"
+        )
     }
 
     // MARK: - Elements

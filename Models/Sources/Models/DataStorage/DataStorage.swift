@@ -17,7 +17,6 @@ public class DataStorage<T: Identifiable & Equatable & Codable>: @preconcurrency
     /// - Note: This property is read-only externally but can be modified through the provided methods.
     public private(set) var objects: [T]
 
-
     /// Creates a new DataStorage instance.
     /// - Parameters:
     ///   - initialObjects: The initial collection of objects to store. Defaults to empty array.

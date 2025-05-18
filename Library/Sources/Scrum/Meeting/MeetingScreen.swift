@@ -20,10 +20,10 @@ struct MeetingScreen {
     @Environment(\.speechService) private var speechService
     @StoredData private var dailyScrums: [DailyScrum]
     @State var scrum: DailyScrum
-    @State var activeSpeaker: DailyScrum.Attendee? = nil
+    @State var activeSpeaker: DailyScrum.Attendee?
     @State var secondsElapsed: TimeInterval = 0
-    @State var errorToPresent: SpeechServiceError? = nil
-    @State private var timerTask: Task<Void, Never>? = nil
+    @State var errorToPresent: SpeechServiceError?
+    @State private var timerTask: Task<Void, Never>?
     @State private var transcript: String = ""
 
     var isErrorPresented: Binding<Bool> {
@@ -107,7 +107,7 @@ struct MeetingScreen {
                     self.transcript = partialResult
                 }
             } catch {
-                throw .streamFailed(error) 
+                throw .streamFailed(error)
             }
         } catch {
             errorToPresent = error

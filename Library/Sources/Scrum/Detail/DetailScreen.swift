@@ -15,7 +15,7 @@ struct DetailScreen {
     @StoredData private var scrumPath: [ScrumRoute]
     @StoredData private var dailyScrums: [DailyScrum]
     @State private var scrum: DailyScrum
-    @State private var routeToPresent: ScrumRoute? = nil
+    @State private var routeToPresent: ScrumRoute?
 
     init(_ scrum: DailyScrum) {
         _scrum = .init(initialValue: scrum)

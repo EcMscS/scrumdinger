@@ -33,10 +33,14 @@ public extension History {
         .init(
             attendees: [
                 .init(name: "Jon"),
-                .init(name: "Darla"),
+                .init(name: "Darla")
             ],
             length: 300,
-            transcript: "Darla, would you like to start today? Sure, yesterday I reviewed Luis' PR and met with the design team to finalize the UI..."
+            transcript:
+            """
+                Darla, would you like to start today? Sure, yesterday I reviewed Luis' PR
+                and met with the design team to finalize the UI...
+            """
         )
     }
 }
